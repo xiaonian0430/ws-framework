@@ -1,0 +1,33 @@
+{
+    "name": "xiaonian/ws-framework",
+    "type": "project",
+    "keywords": [
+        "high performance",
+        "ws service"
+    ],
+    "homepage": "https://github.com/xiaonian0430",
+    "license": "MIT",
+    "description": "High performance ws Service Framework.",
+    "authors": [
+        {
+            "name": "xiaonian",
+            "email": "xiaonian0430@163.com",
+            "homepage": "https://github.com/xiaonian0430",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "xiaonian0430@163.com",
+        "issues": "https://github.com/xiaonian0430/ws-framework/issues",
+        "source": "https://github.com/xiaonian0430/ws-framework"
+    },
+    "require": {
+
+    },
+    "autoload": {
+        "psr-4": {
+            "GatewayWorker": "core/GatewayWorker",
+            "Workerman\\": "core/Workerman"
+        }
+    }
+}
