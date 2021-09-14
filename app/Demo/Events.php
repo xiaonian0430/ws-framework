@@ -1,29 +1,21 @@
 <?php
 /**
- *
- */
-
-/**
- * 用于检测业务代码死循环或者长时间阻塞等问题
- * 如果发现业务卡死，可以将下面declare打开（去掉//注释），并执行php start.php reload
- * 然后观察一段时间workerman.log看是否有process_timeout异常
- */
-//declare(ticks=1);
-
-/**
  * 聊天主逻辑
- * 主要是处理 onMessage onClose 
+ * @author: Xiao Nian
+ * @contact: xiaonian030@163.com
+ * @datetime: 2021-09-14 10:00
  */
 use \GatewayWorker\Lib\Gateway;
 
 class Events
 {
-   
-   /**
-    * 有消息时
-    * @param int $client_id
-    * @param mixed $message
-    */
+
+    /**
+     * @param $client_id
+     * @param $message
+     * @return bool|void
+     * @throws Exception
+     */
    public static function onMessage($client_id, $message)
    {
         // debug
@@ -31,22 +23,19 @@ class Events
         
         // 客户端传递的是json数据
         $message_data = json_decode($message, true);
-        if(!$message_data)
-        {
+        if(!$message_data) {
             return ;
         }
         
         // 根据类型执行不同的业务
-        switch($message_data['type'])
-        {
+        switch($message_data['type']) {
             // 客户端回应服务端的心跳
             case 'pong':
                 return;
             // 客户端登录 message格式: {type:login, name:xx, room_id:1} ，添加到客户端，广播给所有客户端xx进入聊天室
             case 'login':
                 // 判断是否有房间号
-                if(!isset($message_data['room_id']))
-                {
+                if(!isset($message_data['room_id'])) {
                     throw new \Exception("\$message_data['room_id'] not set. client_ip:{$_SERVER['REMOTE_ADDR']} \$message:$message");
                 }
                 
@@ -58,8 +47,7 @@ class Events
               
                 // 获取房间内所有用户列表 
                 $clients_list = Gateway::getClientSessionsByGroup($room_id);
-                foreach($clients_list as $tmp_client_id=>$item)
-                {
+                foreach($clients_list as $tmp_client_id=>$item) {
                     $clients_list[$tmp_client_id] = $item['client_name'];
                 }
                 $clients_list[$client_id] = $client_name;
@@ -122,8 +110,7 @@ class Events
        echo "client:{$_SERVER['REMOTE_ADDR']}:{$_SERVER['REMOTE_PORT']} gateway:{$_SERVER['GATEWAY_ADDR']}:{$_SERVER['GATEWAY_PORT']}  client_id:$client_id onClose:''\n";
        
        // 从房间的客户端列表中删除
-       if(isset($_SESSION['room_id']))
-       {
+       if(isset($_SESSION['room_id'])) {
            $room_id = $_SESSION['room_id'];
            $new_message = array('type'=>'logout', 'from_client_id'=>$client_id, 'from_client_name'=>$_SESSION['client_name'], 'time'=>date('Y-m-d H:i:s'));
            Gateway::sendToGroup($room_id, json_encode($new_message));

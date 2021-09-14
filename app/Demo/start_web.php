@@ -1,6 +1,9 @@
 <?php
 /**
- *
+ * 网站进程
+ * @author: Xiao Nian
+ * @contact: xiaonian030@163.com
+ * @datetime: 2021-09-14 10:00
  */
 use Workerman\Worker;
 use Workerman\Protocols\Http\Request;
@@ -9,6 +12,7 @@ use Workerman\Connection\TcpConnection;
 
 // WebServer
 $web = new Worker("http://0.0.0.0:55151");
+
 // WebServer进程数量
 $web->count = 2;
 
@@ -61,8 +65,7 @@ function exec_php_file($file) {
 }
 
 // 如果不是在根目录启动，则运行runAll方法
-if(!defined('GLOBAL_START'))
-{
+if(!defined('GLOBAL_START')) {
     Worker::runAll();
 }
 
