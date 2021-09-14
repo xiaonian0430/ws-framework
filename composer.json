@@ -26,8 +26,8 @@
     },
     "autoload": {
         "psr-4": {
-            "GatewayWorker": "core/GatewayWorker",
-            "Workerman\\": "core/Workerman"
+            "GatewayWorker\\": "core/GatewayWorker/",
+            "Workerman\\": "core/Workerman/"
         }
     }
 }
