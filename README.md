@@ -11,11 +11,6 @@
  * 聊天内容支持微博表情
  * 支持多服务器部署
 
-## 下载安装
-```
-composer config -g repo.packagist composer https://mirrors.aliyun.com/composer/
-composer install
-```
 
 ## 启动停止(Linux系统)
 
