@@ -1,13 +1,9 @@
 <?php
-
-/*
- * This file is part of Composer.
- *
- * (c) Nils Adermann <naderman@naderman.de>
- *     Jordi Boggiano <j.boggiano@seld.be>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
+/**
+ * 启动文件
+ * @author: Xiao Nian
+ * @contact: xiaonian030@163.com
+ * @datetime: 2021-09-14 10:00
  */
 
 namespace Composer\Autoload;
